@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 //MATERIAL
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,17 +32,12 @@ const useStyles = makeStyles({
     }
   });
   
-const GameList = () =>{
+const GameList = props =>{
     const classes = useStyles();
 
-    // const renderHendler = data => {
-
-    //     const deleteGame = data => {
-    //         props.removeGame({
-    //             id: props.id,
-    //         }, [...props.games])
-    //     }
-    // }
+    useEffect(() => {
+       console.log(props.games)
+    })
 
 
     return (
@@ -65,16 +60,14 @@ const GameList = () =>{
                             image="/static/images/cards/contemplative-reptile.jpg"
                             title="Contemplative Reptile"
                         />
-
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">Lizard</Typography>
-
-                            <Typography variant="body2" color="textSecondary" component="p">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                            across all continents except Antarctica
-                            </Typography>
-                        </CardContent>
-
+                        {props.games.map(game => {
+                            return (
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2">{game.name}</Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">{game.description}</Typography>
+                                </CardContent> 
+                            )
+                        })}
                     </CardActionArea>
 
                     <CardActions>
@@ -91,10 +84,9 @@ const GameList = () =>{
     );
 }
 
-// const mapStateToProps = state => {
-//     console.log(state);
-// }
-// const mapDispatchToProps = dispatch => {
-//     removeGame: (data, games) => dispatch(removeGame(data, games));
-// }
-export default connect('','')(GameList);
+function mapStateToProps(state) {
+    return {
+        games: state.mainReducer.games
+    }
+}
+export default connect(mapStateToProps)(GameList);

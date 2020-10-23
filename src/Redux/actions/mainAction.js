@@ -1,8 +1,9 @@
+import { AccordionActions } from '@material-ui/core';
 import {ADD_GAME, REMOVE_GAME, UPDATE_GAME} from '../types';
 
-export const addGame = (data, games) =>{
-    games.push(data);
-    return{
+export function addGame(data, games){
+    games.push(data)
+    return {
         type: ADD_GAME,
         games
     }

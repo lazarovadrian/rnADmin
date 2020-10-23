@@ -7,7 +7,7 @@ const initialState = {
 export default function mainReducer(state = initialState, action){
     switch (action.type) {
         case ADD_GAME:
-            return{
+            return {
                 ...state,
                 games: action.games
             };

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState, useEffect, useIn} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { TextField, Button } from '@material-ui/core';
 
 import {connect} from 'react-redux';
 import {addGame} from '../../Redux/actions/mainAction';
@@ -16,33 +16,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const hendler = () => {
+// const sendGame = () => {
 //   props.addGame = () => {
-//     return 'TEST';
+//     console.log("gjtikfgj")
 //   }
 // }
 
-const AddGameForm = () =>{
+const AddGameForm = props  =>{
+
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+
+    const addToGame = () => {
+      props.addGame({
+        name,
+        description
+      }, [...props.games])
+    }
+
     const classes = useStyles();
     return(
-        <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="standard-basic" label="Название" />
-            <TextField id="standard-basic" label="Описание" />
-            {/* <input type="submit" value="Сохранить" onClick={hendler()}/> */}
-        </form>
+        <div className={classes.root} noValidate autoComplete="off">
+            <TextField id="standard-basic" label="Название" value={name} onChange={(name)=>setName(name.target.value)}/>
+            <TextField id="standard-basic" label="Описание" value={description} onChange={(description)=>setDescription(description.target.value)}/>
+            <Button onClick={addToGame}>Отправить</Button>
+        </div>
     )
 }
 
-const mapStateToProps = state =>{
+function mapStateToProps(state) {
   return{
-
+    games: state.mainReducer.games
   }
 }
 
-const mapDispatchToProps = dispatch =>{
+function mapDispatchToProps(dispatch) {
   return{
-    addGame: (games) => dispatch(addGame(games))
+    addGame: (data, games) => dispatch(addGame(data, games))
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(AddGameForm)
+export default connect(mapStateToProps, mapDispatchToProps)(AddGameForm)
