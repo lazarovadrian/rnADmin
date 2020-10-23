@@ -1,0 +1,9 @@
+.Main-Nav{
+    width: 100%;
+    max-width: 180px;
+    min-width: 180px;
+}
+.selected{
+    color: rgb(103, 10, 224);
+    background-color: whitesmoke;
+}
