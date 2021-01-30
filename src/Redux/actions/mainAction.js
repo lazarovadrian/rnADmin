@@ -7,7 +7,7 @@ export function addGame(data, games){
         type: ADD_GAME,
         games
     }
-}
+} 
 
 export const updateGame = (data, games) => {
     const sorted = games.map(item => {
