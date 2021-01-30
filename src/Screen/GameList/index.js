@@ -82,7 +82,7 @@ const GameList = props =>{
 
     </div>
     );
-}
+} 
 
 function mapStateToProps(state) {
     return {
